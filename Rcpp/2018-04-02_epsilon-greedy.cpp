@@ -16,20 +16,46 @@ using namespace Rcpp;
  *
 */
 
-struct EpsilonGreedy {
-  double epsilon;
-  arma::uvec counts;
-  arma::vec values;
+// Define the arm object
+struct BernoulliArm {
+  double p; // probability of success
 };
 
+// execute the probabilistic draw process
+int draw(BernoulliArm arm) {
+  if (R::runif(0, 1) > arm.p) {
+    return 0;
+  } else {
+    return 1;
+  }
+}
+
+// Define the algorithm object
+
+struct EpsilonGreedy {
+  double epsilon; // represents the trade-off between exploration and exploitation
+  arma::uvec counts; // how many times each arm was played
+  arma::vec values; // average reward of each arm
+};
+
+/*
+ * Several helper functions that specialize in one task 
+ */
+
+// returns the index of the maximum value in a vector, i.e., index of the best
+// arm
 int index_max(arma::uvec& v) {
   return v.index_max();
 }
 
+// return index fo a randomly chosen arm
 int index_rand(arma::vec& v) {
   int s = arma::randi<int>(arma::distr_param(0, v.n_elem-1));
   return s;
 }
+
+// select the best arm or a random arm at each time step based on the epsilon of
+// the algorithm
 
 int select_arm(EpsilonGreedy& algo) {
   if (R::runif(0, 1) > algo.epsilon) {
@@ -39,26 +65,16 @@ int select_arm(EpsilonGreedy& algo) {
   }
 }
 
+// at each time step update the counts and the values in the algorithm
 void update(EpsilonGreedy& algo, int chosen_arm, double reward) {
   algo.counts[chosen_arm] += 1;
   
   int n = algo.counts[chosen_arm];
   double value = algo.values[chosen_arm];
   
-  algo.values[chosen_arm] = ((n-1)/n) * value + (1/n) * reward;
+  algo.values[chosen_arm] = ((n-1.0)/n) * value + (1.0/n) * reward;
 }
 
-struct BernoulliArm {
-  double p;
-};
-
-int draw(BernoulliArm arm) {
-  if (R::runif(0, 1) > arm.p) {
-    return 0;
-  } else {
-    return 1;
-  }
-}
 
 // [[Rcpp::export]]
 DataFrame test_algorithm(double epsilon, std::vector<double>& means, int n_sims, int horizon) {

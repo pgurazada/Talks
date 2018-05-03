@@ -27,6 +27,10 @@ int simple_product(std::vector<int> vec) {
   return prod;
 }
 
+// [[Rcpp::export]]
+double mse(NumericVector y_pred, NumericVector y_truth) {
+  return mean(pow(y_pred - y_truth, 2));
+}
 
 
 /*** R
