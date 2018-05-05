@@ -28,7 +28,7 @@ int simple_product(std::vector<int> vec) {
 }
 
 // [[Rcpp::export]]
-double mse(NumericVector y_pred, NumericVector y_truth) {
+double mse_cpp(NumericVector y_pred, NumericVector y_truth) {
   return mean(pow(y_pred - y_truth, 2));
 }
 
