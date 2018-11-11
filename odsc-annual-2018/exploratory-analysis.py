@@ -25,22 +25,35 @@ def read_dataset(data_path):
 
     data_raw_df = pd.read_excel(data_path)
     print('data set imported with the following',
-          len(data_raw_df.columns))
+          len(data_raw_df.columns),
+          'columns')
     print(data_raw_df.columns)
     print(data_raw_df.dtypes)
 
     return data_raw_df
 
 
+def remove_redundant_features(raw_data_df, cols_to_drop):
+      return raw_data_df.drop(columns=cols_to_drop)
+
+
+
+def remove_missing_rows(data_df):
+      return data_df.dropna()
+
 
 if __name__ == '__main__':
 
-    churn_raw_df = pd.read_excel('data/WA_Fn-UseC_-Telco-Customer-Churn.xlsx')
-    print('data set imported and read with the following',
-          len(churn_raw_df.columns),
-          'columns:')
-    print(churn_raw_df.columns)
-    print(churn_raw_df.dtypes)
+      churn_raw_df = read_dataset('data/WA_Fn-UseC_-Telco-Customer-Churn.xlsx')
+
+      churn_data_df = remove_redundant_features(churn_raw_df, 
+                                                ['customerID'])
+
+      churn_data_df = remove_missing_rows(churn_data_df)
+
+
+
+
 
 
 
