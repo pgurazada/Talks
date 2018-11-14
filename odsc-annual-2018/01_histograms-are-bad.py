@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from datautils import read_dataset, remove_missing_rows, remove_redundant_features
+from datautils import read_excel, remove_missing_rows, remove_redundant_features
 from plothelpers import plot_histogram
 
 from sklearn.model_selection import train_test_split
@@ -23,8 +23,8 @@ https://www.business-science.io/business/2017/11/28/customer_churn_analysis_kera
 
 if __name__ == '__main__':
       
-    churn_raw_df = read_dataset('data/WA_Fn-UseC_-Telco-Customer-Churn.xlsx', 
-                                na_values_str=' ')
+    churn_raw_df = read_excel('data/WA_Fn-UseC_-Telco-Customer-Churn.xlsx', 
+                              na_values_str=' ')
 
     churn_data_df = remove_redundant_features(churn_raw_df, ['customerID'])
 
@@ -38,14 +38,17 @@ if __name__ == '__main__':
 
     print(churn_features.shape, churn_labels.shape)
 
-    churn_features_train, churn_features_test, churn_labels_train, churn_labels_test = train_test_split(churn_features, churn_labels, test_size=0.2, random_state=20130810)
+    X_train, X_test, y_train, y_test = train_test_split(churn_features, 
+                                                        churn_labels, 
+                                                        test_size=0.2, 
+                                                        random_state=20130810)
 
     plt.figure(1)
 
     for i, bins in enumerate([6, 10, 12, 20]):
-        plot_pos = 220+i+1
-        plt.subplot(plot_pos)
-        plot_histogram(data_df=churn_features_train, 
+        plot_position = 220+i+1
+        plt.subplot(plot_position)
+        plot_histogram(data_df=X_train, 
                        feature_label='tenure',
                        nb_bins=bins)
     
@@ -55,9 +58,9 @@ if __name__ == '__main__':
     plt.figure(2)
 
     for i, bins in enumerate([6, 60, 100, 200]):
-        plot_pos = 220+i+1
-        plt.subplot(plot_pos)
-        plot_histogram(data_df=churn_features_train,
+        plot_position = 220+i+1
+        plt.subplot(plot_position)
+        plot_histogram(data_df=X_train,
                        feature_label='TotalCharges', 
                        nb_bins=bins)
     
