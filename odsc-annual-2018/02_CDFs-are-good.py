@@ -1,7 +1,8 @@
 import matplotlib.pyplot as plt
+import sys
 
 from datautils import read_excel, remove_missing_rows, remove_redundant_features
-from plothelpers import plot_cdf
+from plothelpers import plot_cdf, plot_cdf_and_normal
 
 from sklearn.model_selection import train_test_split
 
@@ -27,17 +28,27 @@ if __name__ == '__main__':
                                                         test_size=0.2,
                                                         random_state=20130810)
 
-    plt.figure(1)
+    if sys.argv[1] == 'ex1':
+        plot_cdf(data_df=X_train, 
+                 feature_label='tenure')
 
-    plot_cdf(data_df=X_train, 
-             feature_label='tenure')
+        plt.show()
 
-    plt.show()
+    if sys.argv[1] == 'ex2':
 
-    plt.figure(2)
-
-    plot_cdf(data_df=X_train,
+        plot_cdf(data_df=X_train,
              feature_label='TotalCharges')
 
-    plt.tight_layout()
-    plt.show()
+        plt.tight_layout()
+
+        plt.show()
+
+    if sys.argv[1] == 'ex3':
+
+        plot_cdf_and_normal(data_df=X_train,
+                            feature_label='TotalCharges')
+    
+        plt.tight_layout()
+
+        plt.show()
+
