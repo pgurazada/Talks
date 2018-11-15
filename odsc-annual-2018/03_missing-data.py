@@ -2,7 +2,6 @@ import warnings
 import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
-import missingno as msno
 
 sns.set_context('talk')
 sns.set_style('ticks')
@@ -37,8 +36,3 @@ if __name__ == '__main__':
     print(mdi.compute_value_counts(ufo_df))
     print(mdi.compute_value_perc(ufo_df))
     print(mdi.cols_with_missings(ufo_df))
-
-    msno.heatmap(ufo_df, figsize=(20, 20))
-
-    plt.show()
-
