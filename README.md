@@ -6,4 +6,4 @@ A placeholder for presentations
 
 ["Rcpp"](Rcpp/Rcpp.pdf)
 
-["Feature Engineering"]()
+["Feature Engineering"](odsc-annual-2018/odsc-presentation.ipynb)
