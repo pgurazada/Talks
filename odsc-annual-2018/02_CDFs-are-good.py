@@ -6,6 +6,7 @@ from plothelpers import plot_cdf, plot_cdf_and_normal
 
 from sklearn.model_selection import train_test_split
 
+
 '''
 https://www.andata.at/en/software-blog-reader/why-we-love-the-cdf-and-do-not-like-histograms-that-much.html
 
@@ -22,6 +23,8 @@ if __name__ == '__main__':
 
     churn_features = churn_data_df.drop(columns=['Churn'])
     churn_labels = churn_data_df['Churn']
+
+    pt = PowerTransformer()
 
     X_train, X_test, y_train, y_test = train_test_split(churn_features,
                                                         churn_labels,

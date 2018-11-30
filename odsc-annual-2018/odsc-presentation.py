@@ -7,7 +7,7 @@
 # 
 # ## https://github.com/pgurazada/Talks
 
-# Thank you for coming to this session. Awesome job by Pavel and the rest of the team to put these sessions together. Requires a lot of commitment! 
+# Thank you to team ODSC! 
 # 
 # In this session, we look at a bunch of pesky problems we have to wrangle. From the time we are handed over some data, to the time we start to fit a model to the data, there are a series of things one has to do to ensure model fits are valid. In this talk I picked three such tasks that are always on the -to-do' list but are non standard in nature. In essence, this talk is an amalgamation of my learning from several data wrangling tasks that I had to undertake.
 # 
@@ -113,7 +113,7 @@ def plot_histogram(data_df, feature_label, nb_bins=10):
 # However, histograms are fundamentally flawed for one reason - the interpretation depends on the number of bins used, and this is a parameter that is usually not closely looked at. Default choices might not really be a good idea. This makes analyzing distributions a non-standard problem. 
 # 
 # Let me illustrate with a couple of examples.
-
+# 
 # First, import the data, remove redundant features and missing rows.
 
 # In[7]:
@@ -198,14 +198,13 @@ plt.tight_layout()
 # So, if histograms dont work, what should we use? My personal choice is to plot CDF's. 
 # 
 # A CDF is defined as: $$F(x) = \dfrac{\text{# samples} \leq x }{n} $$ 
-# 
 # where $n$ is the total sample size.
 # 
-# There are several advantages to using CDF's. First, CDF's provide great visual feedback not only on the distribution but also key segments of the data, e.g., quantiles. Second, it is very easy to judge skew by looking at the shape of the CDF. In fact, a CDF that looks like a good ROC curve is a badly skewed distribution. LEt us look at some examples.
+# There are several advantages to using CDF's. First, CDF's provide great visual feedback not only on the distribution but also key segments of the data, e.g., quantiles. Second, it is very easy to judge skew by looking at the shape of the CDF. In fact, a CDF that looks like a good ROC curve is a badly skewed distribution. Let us look at some examples.
 
 # Here is a little function that puts together the scaffolding required.
 
-# In[11]:
+# In[12]:
 
 
 def plot_cdf(data_df, feature_label):
@@ -229,13 +228,15 @@ def plot_cdf(data_df, feature_label):
     plt.title('CDF of ' + feature_label)
 
 
-# From the definition of $F(x)$, we see that for each value $x$, we need to figure out the number of samples in the data set that are less than or equal to this value. The obvious starting point is then to sort the data in ascending order. Now, we map this sorted data set to the interval $[0, 1]$ divided into subintervals equal to number of points in the data set. This takes care of the denominator in the definition.
+# From the definition of $F(x)$, we see that for each value $x$, we need to figure out the number of samples in the data set that are less than or equal to this value. The obvious starting point is then to sort the data in ascending order. 
+# 
+# Then, we map this sorted data set to the interval $[0, 1]$ divided into subintervals equal to number of points in the data set. This takes care of the denominator in the definition.
 # 
 # To aid simple analysis, I also usually add the lines corresponding to the quantiles in the data set. This is achieved by drawing the corresponding horizontal and vertical lines using the data.
 
 # ### Let's now plot skewed and non-skewed cumulative distributions
 
-# In[12]:
+# In[13]:
 
 
 # Non-skewed distribution
@@ -245,7 +246,7 @@ plot_cdf(data_df=X_train, feature_label='tenure')
 
 # With experience, one comes to relate joy with seeing such plots. It has a characteristic swirl about half-way through that would make a normal distribution jump for joy. The quantile lines are reasonably far apart and not hunched together. These are indications of non-skew.
 
-# In[13]:
+# In[14]:
 
 
 # Skewed distribution
@@ -253,7 +254,7 @@ plot_cdf(data_df=X_train, feature_label='tenure')
 plot_cdf(data_df=X_train, feature_label='TotalCharges')
 
 
-# This plot indicates the presence of skew. The quantile lines are hunched together (indicating that most data is concentrated in a narrow range). The long tail is visible as the flattened line beyond the $q = .75$ line. There are no joyful swirls in this one.
+# This plot indicates the presence of skew. The quantile lines are hunched together (indicating that most data is concentrated in a narrow range). The long tail is visible as the flattened line beyond the $q = .75$ line. There are no joyful swirls in this one. A good ROC curve is a bad CDF.
 
 # ### We can turbo charge the CDF by overlaying a normal distribution
 
@@ -261,7 +262,7 @@ plot_cdf(data_df=X_train, feature_label='TotalCharges')
 
 # Here is a helper function that superimposes a normal CDF on the data CDF
 
-# In[14]:
+# In[15]:
 
 
 def plot_cdf_and_normal(data_df, feature_label):
@@ -282,7 +283,7 @@ def plot_cdf_and_normal(data_df, feature_label):
 
 # ### Lets plot the skewed cumulative distribution... again
 
-# In[15]:
+# In[16]:
 
 
 plot_cdf_and_normal(data_df=X_train,
@@ -299,7 +300,9 @@ plot_cdf_and_normal(data_df=X_train,
 # 
 # $$ y_{i}^{(\lambda)} = \begin{cases} ((y_i+1)^{\lambda} - 1)/\lambda, &\lambda \neq 0, y_i \geq 0 \\ log(y_i+1), &\lambda = 0, y_i \geq 0 \\ -((-y_i+1)^{2-\lambda} - 1)/(2-\lambda), &\lambda \neq 2, y_i < 0 \\ -log(-y_i+1), &\lambda = 2, y_i < 0  \end{cases} $$
 
-# In[16]:
+# How did Yeo - Johnson come up with such a complex transformation?!
+
+# In[17]:
 
 
 def _yeo_johnson_optimize(self, x):
@@ -330,7 +333,7 @@ def _yeo_johnson_optimize(self, x):
         return optimize.brent(_neg_log_likelihood, brack=(-2, 2))
 
 
-# In[17]:
+# In[18]:
 
 
 # Apply Yeo - Johnson transformation using the PowerTransformer class in scikit
@@ -342,7 +345,7 @@ X_train['TotalCharges_YJ'] = yj_pt.fit_transform(X_train['TotalCharges'].values.
 
 # Lets see how things work out...
 
-# In[18]:
+# In[19]:
 
 
 plt.figure(figsize=(18, 6))
@@ -369,7 +372,7 @@ plot_cdf_and_normal(data_df=X_train, feature_label='TotalCharges_YJ')
 
 # First step is to see how deep the rabbit hole is...
 
-# In[19]:
+# In[20]:
 
 
 def compute_missing_value_counts(data_df):
@@ -381,7 +384,7 @@ def compute_missing_value_counts(data_df):
 
 # Call the `isnull` function from pandas to generate a boolean mask and sum it by column. Then arrange the counts in descending order to identify the worst offenders and return the non-zero values in this list.
 
-# In[20]:
+# In[21]:
 
 
 def compute_missing_value_perc(data_df):
@@ -395,7 +398,7 @@ def compute_missing_value_perc(data_df):
     return non_zero_counts * 100/n_samples
 
 
-# In[21]:
+# In[22]:
 
 
 def cols_with_missings(data_df):
@@ -405,44 +408,44 @@ def cols_with_missings(data_df):
 
 # Always ask the data source - how did you capture missing values?
 
-# In[22]:
+# In[23]:
 
 
 churn_raw_df = pd.read_excel('data/WA_Fn-UseC_-Telco-Customer-Churn.xlsx', 
                              na_values=' ')
 
 
-# In[23]:
+# In[24]:
 
 
 compute_missing_value_counts(churn_raw_df)
 
 
-# In[24]:
+# In[25]:
 
 
 compute_missing_value_perc(churn_raw_df)
 
 
-# In[25]:
+# In[26]:
 
 
 cols_with_missings(churn_raw_df)
 
 
-# Out custom functions do the diagnosis on the data set and return the number of missing values per column, percentage of missing values per column and the columns with missing values. In this example, the number is not very high, and we would be okay with any imputation strategy.
+# Our custom functions do the diagnosis on the data set and return the number of missing values per column, percentage of missing values per column and the columns with missing values. In this example, the number is not very high, and we would be okay with any imputation strategy.
 # 
 # Lets turn to a little more complicated problem.
 
 # Lets make the problem a bit more complicated
 
-# In[26]:
+# In[27]:
 
 
 properties_raw_df = pd.read_csv('data/big/properties_2016.csv')
 
 
-# In[27]:
+# In[28]:
 
 
 cols_with_missings(properties_raw_df)[0:5] # show only first five in the list
@@ -450,7 +453,7 @@ cols_with_missings(properties_raw_df)[0:5] # show only first five in the list
 
 # There are too many features with missing values, so we look at only the top 5
 
-# In[28]:
+# In[29]:
 
 
 compute_missing_value_perc(properties_raw_df)[0:5] # show 5 worst offenders
@@ -462,7 +465,7 @@ compute_missing_value_perc(properties_raw_df)[0:5] # show 5 worst offenders
 
 # Snippet from the `heatmap` function in the `missingno` package
 # 
-# Create and mask the correlation matrix. Construct the base heatmap.
+# Create and mask the correlation matrix. Call the heatmap from seaborn.
 # 
 # ----
 # 
@@ -478,7 +481,7 @@ compute_missing_value_perc(properties_raw_df)[0:5] # show 5 worst offenders
 #     
 # ```
 
-# In[29]:
+# In[30]:
 
 
 first_ten_missing_columns = cols_with_missings(properties_raw_df)[0:10]
@@ -502,7 +505,7 @@ missingno.heatmap(properties_raw_df[first_ten_missing_columns], figsize=(16,9))
 
 # ### Add flag variable when missing
 
-# In[30]:
+# In[31]:
 
 
 def add_variable_for_missings(data_df):
@@ -517,7 +520,7 @@ def add_variable_for_missings(data_df):
 
 # In this function, we add in an additional feature that loops over the values in feature and returns a boolean mask indicating missing values
 
-# In[31]:
+# In[32]:
 
 
 properties_missing_cols_df = add_variable_for_missings(properties_raw_df)
@@ -525,19 +528,19 @@ properties_missing_cols_df = add_variable_for_missings(properties_raw_df)
 
 # We can check if the columns were added based on missing values.
 
-# In[32]:
+# In[33]:
 
 
 properties_raw_df.columns[-10:-1]
 
 
-# In[33]:
+# In[34]:
 
 
 cols_with_missings(properties_raw_df)[-10:-1]
 
 
-# In[34]:
+# In[35]:
 
 
 properties_missing_cols_df.columns[-10:-1]
@@ -557,7 +560,7 @@ properties_missing_cols_df.columns[-10:-1]
 
 # Here is a function that computes the correlation between the target and features
 
-# In[35]:
+# In[36]:
 
 
 def compute_correlations(X_train_df, y_train_df, label_col_str):
@@ -591,7 +594,7 @@ def compute_correlations(X_train_df, y_train_df, label_col_str):
 # 
 # Finally, we set the column names to 'feature' and the label of the target.
 
-# In[36]:
+# In[37]:
 
 
 def plot_correlations(correlation_df, feature_str, label_str):
@@ -617,7 +620,7 @@ def plot_correlations(correlation_df, feature_str, label_str):
 
 # Lets run these through some data...
 
-# In[37]:
+# In[38]:
 
 
 bank_raw_df = pd.read_csv('data/bank-full.csv', delimiter=';')
@@ -628,7 +631,7 @@ bank_features_dummified = pd.get_dummies(bank_features, dummy_na=False)
 bank_labels = bank_raw_df['y']
 
 
-# In[38]:
+# In[39]:
 
 
 X_train, X_test, y_train, y_test = train_test_split(bank_features_dummified,
@@ -640,13 +643,13 @@ y_train_df = pd.DataFrame(y_train.apply(lambda x: int(x == 'yes')),
                           columns=['y'])
 
 
-# In[39]:
+# In[40]:
 
 
 corr_df = compute_correlations(X_train, y_train_df, 'y')
 
 
-# In[40]:
+# In[41]:
 
 
 plot_correlations(corr_df.head(25), feature_str='feature', label_str='y')
@@ -654,7 +657,7 @@ plot_correlations(corr_df.head(25), feature_str='feature', label_str='y')
 
 # There are far too many features to plot them in a single plot. Let us first look at the top 25 features. We can see that two of the features are very strongly correlated with the target. The rest are resting around 0 correlation.
 
-# In[41]:
+# In[42]:
 
 
 plot_correlations(corr_df.tail(25), feature_str='feature', label_str='y')

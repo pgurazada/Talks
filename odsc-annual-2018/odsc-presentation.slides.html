@@ -11932,8 +11932,28 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Thank you for coming to this session. Awesome job by Pavel and the rest of the team to put these sessions together. Requires a lot of commitment!</p>
+<p>Thank you to team ODSC!</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>In this session, we look at a bunch of pesky problems we have to wrangle. From the time we are handed over some data, to the time we start to fit a model to the data, there are a series of things one has to do to ensure model fits are valid. In this talk I picked three such tasks that are always on the -to-do' list but are non standard in nature. In essence, this talk is an amalgamation of my learning from several data wrangling tasks that I had to undertake.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>All the code in this talk can be accessed from the GitHub page.</p>
 
 </div>
@@ -11985,6 +12005,16 @@ a.anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>But, what are non-standard problems? If you are one of the fortunate souls who was exposed to mathematics textbooks from the Russian era (for their technical schools), these problems need no introduction. For the rest, non-standard problems are those that seem familiar, but do not admit standard solutions. In our context, these problems depend on the data set and what else you know than what is mentioned in the problem, to arrive at a solution.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>A general approach I tend to follow is: First, devise robust methods to diagnose the problem. Second, hack on simple methods aiming to relate these to known solutions. Three, if nothing works out put together a new solution. This is the same approach I will use to look at three non-standard problems in this talk.</p>
 
 </div>
@@ -12038,6 +12068,16 @@ a.anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In my opinion, any exploratory analysis should begin with a comprehensive review of feature distributions. For numerical features, this translates to checking the empirical distribution of the data. For categorical features, this translates to checking class imbalance.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>A standard method to check numerical features is to plot histograms of the data (i.e., canned solution).</p>
 
 </div>
@@ -12083,7 +12123,27 @@ a.anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This function takes the data frame and the feature whose distribution we are probing as the input. We then call the <code>hist</code> function from <code>matplotlib</code> to plot the histograms with the specified number of bins. The rest of the function definition prettifies the output.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>However, histograms are fundamentally flawed for one reason - the interpretation depends on the number of bins used, and this is a parameter that is usually not closely looked at. Default choices might not really be a good idea. This makes analyzing distributions a non-standard problem.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Let me illustrate with a couple of examples.</p>
 
 </div>
@@ -12311,9 +12371,29 @@ a.anchor-link {
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>So, if histograms dont work, what should we use? My personal choice is to plot CDF's.</p>
-<p>A CDF is defined as: $$F(x) = \dfrac{\text{# samples} \leq x }{n} $$</p>
-<p>where $n$ is the total sample size.</p>
-<p>There are several advantages to using CDF's. First, CDF's provide great visual feedback not only on the distribution but also key segments of the data, e.g., quantiles. Second, it is very easy to judge skew by looking at the shape of the CDF. In fact, a CDF that looks like a good ROC curve is a badly skewed distribution. LEt us look at some examples.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>A CDF is defined as: $$F(x) = \dfrac{\text{# samples} \leq x }{n} $$ 
+where $n$ is the total sample size.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>There are several advantages to using CDF's. First, CDF's provide great visual feedback not only on the distribution but also key segments of the data, e.g., quantiles. Second, it is very easy to judge skew by looking at the shape of the CDF. In fact, a CDF that looks like a good ROC curve is a badly skewed distribution. Let us look at some examples.</p>
 
 </div>
 </div>
@@ -12330,7 +12410,7 @@ a.anchor-link {
 </div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_cdf</span><span class="p">(</span><span class="n">data_df</span><span class="p">,</span> <span class="n">feature_label</span><span class="p">):</span>
@@ -12364,7 +12444,28 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>From the definition of $F(x)$, we see that for each value $x$, we need to figure out the number of samples in the data set that are less than or equal to this value. The obvious starting point is then to sort the data in ascending order. Now, we map this sorted data set to the interval $[0, 1]$ divided into subintervals equal to number of points in the data set. This takes care of the denominator in the definition.</p>
+<p>From the definition of $F(x)$, we see that for each value $x$, we need to figure out the number of samples in the data set that are less than or equal to this value. The obvious starting point is then to sort the data in ascending order.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Then, we map this sorted data set to the interval $[0, 1]$ divided into subintervals equal to number of points in the data set. This takes care of the denominator in the definition.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>To aid simple analysis, I also usually add the lines corresponding to the quantiles in the data set. This is achieved by drawing the corresponding horizontal and vertical lines using the data.</p>
 
 </div>
@@ -12381,7 +12482,7 @@ a.anchor-link {
 </div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Non-skewed distribution</span>
@@ -12429,7 +12530,7 @@ a.anchor-link {
 </aside></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Skewed distribution</span>
@@ -12469,7 +12570,7 @@ a.anchor-link {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This plot indicates the presence of skew. The quantile lines are hunched together (indicating that most data is concentrated in a narrow range). The long tail is visible as the flattened line beyond the $q = .75$ line. There are no joyful swirls in this one.</p>
+<p>This plot indicates the presence of skew. The quantile lines are hunched together (indicating that most data is concentrated in a narrow range). The long tail is visible as the flattened line beyond the $q = .75$ line. There are no joyful swirls in this one. A good ROC curve is a bad CDF.</p>
 
 </div>
 </div>
@@ -12505,7 +12606,7 @@ a.anchor-link {
 </div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="prompt input_prompt">In&nbsp;[15]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_cdf_and_normal</span><span class="p">(</span><span class="n">data_df</span><span class="p">,</span> <span class="n">feature_label</span><span class="p">):</span>
@@ -12548,7 +12649,7 @@ a.anchor-link {
 </div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_cdf_and_normal</span><span class="p">(</span><span class="n">data_df</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span>
@@ -12610,10 +12711,21 @@ a.anchor-link {
 
 </div>
 </div>
-</div></div></section></section><section><section>
+</div><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>How did Yeo - Johnson come up with such a complex transformation?!</p>
+
+</div>
+</div>
+</div>
+</aside></div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">_yeo_johnson_optimize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
@@ -12651,7 +12763,7 @@ a.anchor-link {
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Apply Yeo - Johnson transformation using the PowerTransformer class in scikit</span>
@@ -12677,7 +12789,7 @@ a.anchor-link {
 </div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
@@ -12777,7 +12889,7 @@ a.anchor-link {
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">compute_missing_value_counts</span><span class="p">(</span><span class="n">data_df</span><span class="p">):</span>
@@ -12805,7 +12917,7 @@ a.anchor-link {
 </aside></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[21]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">compute_missing_value_perc</span><span class="p">(</span><span class="n">data_df</span><span class="p">):</span>
@@ -12826,7 +12938,7 @@ a.anchor-link {
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
+<div class="prompt input_prompt">In&nbsp;[22]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">cols_with_missings</span><span class="p">(</span><span class="n">data_df</span><span class="p">):</span>
@@ -12850,7 +12962,7 @@ a.anchor-link {
 </div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">churn_raw_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;data/WA_Fn-UseC_-Telco-Customer-Churn.xlsx&#39;</span><span class="p">,</span> 
@@ -12864,44 +12976,10 @@ a.anchor-link {
 </div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_missing_value_counts</span><span class="p">(</span><span class="n">churn_raw_df</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-<div class="prompt output_prompt">Out[23]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>TotalCharges    11
-dtype: int64</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div></div><div class="fragment">
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 <div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_missing_value_perc</span><span class="p">(</span><span class="n">churn_raw_df</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_missing_value_counts</span><span class="p">(</span><span class="n">churn_raw_df</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -12920,6 +12998,40 @@ dtype: int64</pre>
 
 
 <div class="output_text output_subarea output_execute_result">
+<pre>TotalCharges    11
+dtype: int64</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div></div><div class="fragment">
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_missing_value_perc</span><span class="p">(</span><span class="n">churn_raw_df</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+<div class="prompt output_prompt">Out[25]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
 <pre>TotalCharges    0.156183
 dtype: float64</pre>
 </div>
@@ -12932,7 +13044,7 @@ dtype: float64</pre>
 </div></div><div class="fragment">
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols_with_missings</span><span class="p">(</span><span class="n">churn_raw_df</span><span class="p">)</span>
@@ -12948,7 +13060,7 @@ dtype: float64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[25]:</div>
+<div class="prompt output_prompt">Out[26]:</div>
 
 
 
@@ -12969,6 +13081,16 @@ dtype: float64</pre>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Out custom functions do the diagnosis on the data set and return the number of missing values per column, percentage of missing values per column and the columns with missing values. In this example, the number is not very high, and we would be okay with any imputation strategy.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Lets turn to a little more complicated problem.</p>
 
 </div>
@@ -12986,7 +13108,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">properties_raw_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/big/properties_2016.csv&#39;</span><span class="p">)</span>
@@ -12999,7 +13121,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols_with_missings</span><span class="p">(</span><span class="n">properties_raw_df</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># show only first five in the list</span>
@@ -13015,7 +13137,7 @@ dtype: float64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[27]:</div>
+<div class="prompt output_prompt">Out[28]:</div>
 
 
 
@@ -13047,7 +13169,7 @@ dtype: float64</pre>
 </aside></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">compute_missing_value_perc</span><span class="p">(</span><span class="n">properties_raw_df</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span> <span class="c1"># show 5 worst offenders</span>
@@ -13063,7 +13185,7 @@ dtype: float64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[28]:</div>
+<div class="prompt output_prompt">Out[29]:</div>
 
 
 
@@ -13089,6 +13211,16 @@ dtype: float64</pre>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>This is a bad data set. Some columns have every thing missing. Unfortunately this is a common feature. If you can avoiding imputation is a good thing. If you can't, it is important to understand the nature of missing values in your data, i.e., are they randomly missing or is there a pattern.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>At a descriptive level, one can do one thing to quickly check. There is a nice package <code>missingno</code> that can produce a heatmap indicating the nullity correlations between the features with missing values.</p>
 
 </div>
@@ -13100,7 +13232,7 @@ dtype: float64</pre>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Snippet from the <code>heatmap</code> function in the <code>missingno</code> package</p>
-<p>Create and mask the correlation matrix. Construct the base heatmap.</p>
+<p>Create and mask the correlation matrix. Call the heatmap from seaborn.</p>
 <hr>
 <div class="highlight"><pre><span></span><span class="n">corr_mat</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span>
 
@@ -13116,7 +13248,7 @@ dtype: float64</pre>
 </div></section></section><section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">first_ten_missing_columns</span> <span class="o">=</span> <span class="n">cols_with_missings</span><span class="p">(</span><span class="n">properties_raw_df</span><span class="p">)[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
@@ -13134,13 +13266,13 @@ dtype: float64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[29]:</div>
+<div class="prompt output_prompt">Out[30]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1a1defba58&gt;</pre>
+<pre>&lt;matplotlib.axes._subplots.AxesSubplot at 0x1a7a160f28&gt;</pre>
 </div>
 
 </div>
@@ -13203,6 +13335,16 @@ dtype: float64</pre>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Once we diagnose the depth of the missing value problem we have, it is time to be honest and ask if the data collection effort needs to be repeated. If it cannot, usually a threshold is fixed for missing values beyond which the aberrant features are dropped. Some sort of an imputation strategy, e.g., mean or median or mode, is then used to impute missing values.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>However, there is one thing that is most important to do when we go ahead with imputation strategies. Add in a flag variable to indicate columns that had missing values and incorporate them as an additional feature. When you do this, systematic variations in missing values are captured in the modeling.</p>
 
 </div>
@@ -13219,7 +13361,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">add_variable_for_missings</span><span class="p">(</span><span class="n">data_df</span><span class="p">):</span>
@@ -13250,7 +13392,7 @@ dtype: float64</pre>
 </aside></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">properties_missing_cols_df</span> <span class="o">=</span> <span class="n">add_variable_for_missings</span><span class="p">(</span><span class="n">properties_raw_df</span><span class="p">)</span>
@@ -13274,7 +13416,7 @@ dtype: float64</pre>
 </aside></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">properties_raw_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -13290,7 +13432,7 @@ dtype: float64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[32]:</div>
+<div class="prompt output_prompt">Out[33]:</div>
 
 
 
@@ -13310,7 +13452,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">cols_with_missings</span><span class="p">(</span><span class="n">properties_raw_df</span><span class="p">)[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -13326,7 +13468,7 @@ dtype: float64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[33]:</div>
+<div class="prompt output_prompt">Out[34]:</div>
 
 
 
@@ -13351,7 +13493,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[34]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">properties_missing_cols_df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="o">-</span><span class="mi">10</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -13367,7 +13509,7 @@ dtype: float64</pre>
 
 <div class="output_area">
 
-<div class="prompt output_prompt">Out[34]:</div>
+<div class="prompt output_prompt">Out[35]:</div>
 
 
 
@@ -13418,6 +13560,16 @@ dtype: float64</pre>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Moving the correlation story forward, we can use correlation as a valueable tool to guide our intuition on important features. Typical approaches to model building bank on a sequential build up of features. Also, the importance of features is an off shoot of tree based methods.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>We can however, directly compute correlation between the features and target to assess which features are important.</p>
 
 </div>
@@ -13435,7 +13587,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">compute_correlations</span><span class="p">(</span><span class="n">X_train_df</span><span class="p">,</span> <span class="n">y_train_df</span><span class="p">,</span> <span class="n">label_col_str</span><span class="p">):</span>
@@ -13469,8 +13621,28 @@ dtype: float64</pre>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>In this function, we assume that the data has been separated into train and test. This is important since we do not want any intuition on the test data to inflitrate the modeling process.</p>
 <p>First, we glue the features data and the label data (converted into a data frame).</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Then, we compute the correlations between all the columns in the data frame.</p>
 <p>Then, we pull the column corresponding to the target label and sort it in descending order.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>Then, we take out the correlation of the target with itself (first entry) and convert the result to a data frame.</p>
 <p>Finally, we set the column names to 'feature' and the label of the target.</p>
 
@@ -13480,7 +13652,7 @@ dtype: float64</pre>
 </aside></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">plot_correlations</span><span class="p">(</span><span class="n">correlation_df</span><span class="p">,</span> <span class="n">feature_str</span><span class="p">,</span> <span class="n">label_str</span><span class="p">):</span>
@@ -13508,6 +13680,16 @@ dtype: float64</pre>
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><code>matplotlib</code> is not very great at handling categorical features. Thank you to <code>seaborn</code>.</p>
 <p>The first step is to set up a grid with pairs of feature and correlation with target. The next step is to map this object to the <code>stripplot</code> function that is like a scatter plot that can handle categorical data.</p>
+
+</div>
+</div>
+</div>
+</aside><aside class="notes">
+
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p>I usually like to annotate this plot with lines to indicate features that are highly correlated with the target (I choose .2)</p>
 <p>Now, lets run these through some dat aot check how things look.</p>
 
@@ -13526,7 +13708,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">bank_raw_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/bank-full.csv&#39;</span><span class="p">,</span> <span class="n">delimiter</span><span class="o">=</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
@@ -13544,7 +13726,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">bank_features_dummified</span><span class="p">,</span>
@@ -13563,7 +13745,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">corr_df</span> <span class="o">=</span> <span class="n">compute_correlations</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train_df</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">)</span>
@@ -13576,7 +13758,7 @@ dtype: float64</pre>
 </div></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_correlations</span><span class="p">(</span><span class="n">corr_df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">25</span><span class="p">),</span> <span class="n">feature_str</span><span class="o">=</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="n">label_str</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
@@ -13622,7 +13804,7 @@ dtype: float64</pre>
 </aside></section><section>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">plot_correlations</span><span class="p">(</span><span class="n">corr_df</span><span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">25</span><span class="p">),</span> <span class="n">feature_str</span><span class="o">=</span><span class="s1">&#39;feature&#39;</span><span class="p">,</span> <span class="n">label_str</span><span class="o">=</span><span class="s1">&#39;y&#39;</span><span class="p">)</span>
