@@ -204,7 +204,7 @@ plt.tight_layout()
 
 # Here is a little function that puts together the scaffolding required.
 
-# In[12]:
+# In[11]:
 
 
 def plot_cdf(data_df, feature_label):
@@ -236,7 +236,7 @@ def plot_cdf(data_df, feature_label):
 
 # ### Let's now plot skewed and non-skewed cumulative distributions
 
-# In[13]:
+# In[12]:
 
 
 # Non-skewed distribution
@@ -246,7 +246,7 @@ plot_cdf(data_df=X_train, feature_label='tenure')
 
 # With experience, one comes to relate joy with seeing such plots. It has a characteristic swirl about half-way through that would make a normal distribution jump for joy. The quantile lines are reasonably far apart and not hunched together. These are indications of non-skew.
 
-# In[14]:
+# In[13]:
 
 
 # Skewed distribution
@@ -262,7 +262,7 @@ plot_cdf(data_df=X_train, feature_label='TotalCharges')
 
 # Here is a helper function that superimposes a normal CDF on the data CDF
 
-# In[15]:
+# In[14]:
 
 
 def plot_cdf_and_normal(data_df, feature_label):
@@ -283,7 +283,7 @@ def plot_cdf_and_normal(data_df, feature_label):
 
 # ### Lets plot the skewed cumulative distribution... again
 
-# In[16]:
+# In[15]:
 
 
 plot_cdf_and_normal(data_df=X_train,
@@ -302,7 +302,7 @@ plot_cdf_and_normal(data_df=X_train,
 
 # How did Yeo - Johnson come up with such a complex transformation?!
 
-# In[17]:
+# In[16]:
 
 
 def _yeo_johnson_optimize(self, x):
@@ -333,7 +333,7 @@ def _yeo_johnson_optimize(self, x):
         return optimize.brent(_neg_log_likelihood, brack=(-2, 2))
 
 
-# In[18]:
+# In[17]:
 
 
 # Apply Yeo - Johnson transformation using the PowerTransformer class in scikit
@@ -345,7 +345,7 @@ X_train['TotalCharges_YJ'] = yj_pt.fit_transform(X_train['TotalCharges'].values.
 
 # Lets see how things work out...
 
-# In[19]:
+# In[18]:
 
 
 plt.figure(figsize=(18, 6))
@@ -372,7 +372,7 @@ plot_cdf_and_normal(data_df=X_train, feature_label='TotalCharges_YJ')
 
 # First step is to see how deep the rabbit hole is...
 
-# In[20]:
+# In[19]:
 
 
 def compute_missing_value_counts(data_df):
@@ -384,7 +384,7 @@ def compute_missing_value_counts(data_df):
 
 # Call the `isnull` function from pandas to generate a boolean mask and sum it by column. Then arrange the counts in descending order to identify the worst offenders and return the non-zero values in this list.
 
-# In[21]:
+# In[20]:
 
 
 def compute_missing_value_perc(data_df):
@@ -398,7 +398,7 @@ def compute_missing_value_perc(data_df):
     return non_zero_counts * 100/n_samples
 
 
-# In[22]:
+# In[21]:
 
 
 def cols_with_missings(data_df):
@@ -408,26 +408,26 @@ def cols_with_missings(data_df):
 
 # Always ask the data source - how did you capture missing values?
 
-# In[23]:
+# In[22]:
 
 
 churn_raw_df = pd.read_excel('data/WA_Fn-UseC_-Telco-Customer-Churn.xlsx', 
                              na_values=' ')
 
 
-# In[24]:
+# In[23]:
 
 
 compute_missing_value_counts(churn_raw_df)
 
 
-# In[25]:
+# In[24]:
 
 
 compute_missing_value_perc(churn_raw_df)
 
 
-# In[26]:
+# In[25]:
 
 
 cols_with_missings(churn_raw_df)
@@ -439,13 +439,13 @@ cols_with_missings(churn_raw_df)
 
 # Lets make the problem a bit more complicated
 
-# In[27]:
+# In[26]:
 
 
 properties_raw_df = pd.read_csv('data/big/properties_2016.csv')
 
 
-# In[28]:
+# In[27]:
 
 
 cols_with_missings(properties_raw_df)[0:5] # show only first five in the list
@@ -453,7 +453,7 @@ cols_with_missings(properties_raw_df)[0:5] # show only first five in the list
 
 # There are too many features with missing values, so we look at only the top 5
 
-# In[29]:
+# In[28]:
 
 
 compute_missing_value_perc(properties_raw_df)[0:5] # show 5 worst offenders
@@ -481,7 +481,7 @@ compute_missing_value_perc(properties_raw_df)[0:5] # show 5 worst offenders
 #     
 # ```
 
-# In[30]:
+# In[29]:
 
 
 first_ten_missing_columns = cols_with_missings(properties_raw_df)[0:10]
@@ -505,7 +505,7 @@ missingno.heatmap(properties_raw_df[first_ten_missing_columns], figsize=(16,9))
 
 # ### Add flag variable when missing
 
-# In[31]:
+# In[30]:
 
 
 def add_variable_for_missings(data_df):
@@ -520,7 +520,7 @@ def add_variable_for_missings(data_df):
 
 # In this function, we add in an additional feature that loops over the values in feature and returns a boolean mask indicating missing values
 
-# In[32]:
+# In[31]:
 
 
 properties_missing_cols_df = add_variable_for_missings(properties_raw_df)
@@ -528,19 +528,19 @@ properties_missing_cols_df = add_variable_for_missings(properties_raw_df)
 
 # We can check if the columns were added based on missing values.
 
-# In[33]:
+# In[32]:
 
 
 properties_raw_df.columns[-10:-1]
 
 
-# In[34]:
+# In[33]:
 
 
 cols_with_missings(properties_raw_df)[-10:-1]
 
 
-# In[35]:
+# In[34]:
 
 
 properties_missing_cols_df.columns[-10:-1]
@@ -560,7 +560,7 @@ properties_missing_cols_df.columns[-10:-1]
 
 # Here is a function that computes the correlation between the target and features
 
-# In[36]:
+# In[35]:
 
 
 def compute_correlations(X_train_df, y_train_df, label_col_str):
@@ -594,7 +594,7 @@ def compute_correlations(X_train_df, y_train_df, label_col_str):
 # 
 # Finally, we set the column names to 'feature' and the label of the target.
 
-# In[37]:
+# In[36]:
 
 
 def plot_correlations(correlation_df, feature_str, label_str):
@@ -620,7 +620,7 @@ def plot_correlations(correlation_df, feature_str, label_str):
 
 # Lets run these through some data...
 
-# In[38]:
+# In[37]:
 
 
 bank_raw_df = pd.read_csv('data/bank-full.csv', delimiter=';')
@@ -631,7 +631,7 @@ bank_features_dummified = pd.get_dummies(bank_features, dummy_na=False)
 bank_labels = bank_raw_df['y']
 
 
-# In[39]:
+# In[38]:
 
 
 X_train, X_test, y_train, y_test = train_test_split(bank_features_dummified,
@@ -643,13 +643,13 @@ y_train_df = pd.DataFrame(y_train.apply(lambda x: int(x == 'yes')),
                           columns=['y'])
 
 
-# In[40]:
+# In[39]:
 
 
 corr_df = compute_correlations(X_train, y_train_df, 'y')
 
 
-# In[41]:
+# In[40]:
 
 
 plot_correlations(corr_df.head(25), feature_str='feature', label_str='y')
@@ -657,7 +657,7 @@ plot_correlations(corr_df.head(25), feature_str='feature', label_str='y')
 
 # There are far too many features to plot them in a single plot. Let us first look at the top 25 features. We can see that two of the features are very strongly correlated with the target. The rest are resting around 0 correlation.
 
-# In[42]:
+# In[41]:
 
 
 plot_correlations(corr_df.tail(25), feature_str='feature', label_str='y')
