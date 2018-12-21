@@ -1,0 +1,6 @@
+*.R linguist-language=R
+*.Rmd linguist-language=R
+*.Rnw linguist-language=R
+*.ipynb linguist-language=Python
+*.py linguist-language=Python
+*.jl linguist-language=Julia
