@@ -3,6 +3,8 @@
 .RData
 .Ruserdata
 
+odsc-annual-2018/reveal.js/*
+
 # Compiled source #
 ###################
 *.com
@@ -61,8 +63,8 @@ Thumbs.db
 .Rproj.user/
 
 # produced vignettes
-vignettes/*.html
-vignettes/*.pdf
+*.html
+*.pdf
 
 # OAuth2 token, see https://github.com/hadley/httr/releases/tag/v0.3
 .httr-oauth
