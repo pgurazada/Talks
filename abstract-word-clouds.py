@@ -35,6 +35,8 @@ for year in [2009, 2018]:
                    random_state=20130810)
     
     wc.generate(abstracts.lower())
+
+    plt.figure(figsize=(20,10))
     
     plt.imshow(wc.recolor(color_func=grey_color_func, random_state=20130810),
                interpolation='bilinear')
