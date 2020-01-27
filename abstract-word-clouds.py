@@ -44,4 +44,3 @@ for year in [2009, 2018]:
     plt.show()
     
     wc.to_file(str(year)+'.jpg')
-

@@ -1,3 +1,6 @@
+*.cpp linguist-language=C++
+*.pdf linguist-language=Python
+*.html linguist-language=Python
 *.R linguist-language=R
 *.Rmd linguist-language=R
 *.Rnw linguist-language=R
